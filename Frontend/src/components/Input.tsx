@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FaCheck } from "react-icons/fa";
+import { analyseSentiment } from "../api/collections/sentiment";
 
 export const Input = () => {
   const [inputValue, setInputValue] = useState("");
@@ -11,11 +12,18 @@ export const Input = () => {
     setIsValid(true);
   };
 
-  const handleCheckInput = () => {
+  const handleCheckInput = async () => {
     if (inputValue.trim() === "") {
       setIsValid(false);
     } else {
-      alert("Input is valid!");
+      // Call the API to check the emotional tone
+      try {
+        const response = await analyseSentiment(inputValue);
+        console.log(response);
+        setInputValue("");
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
 
