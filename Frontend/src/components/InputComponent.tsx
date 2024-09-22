@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { FaCheck, FaRedo } from "react-icons/fa";
-import { BeatLoader } from "react-spinners";
+import { ErrorHandler } from "./ErrorHandler";
 
 export interface InputComponentProps {
   onCheckText: (text: string) => void;
-  isLoading: boolean;
 }
 
 export const InputComponent = (props: InputComponentProps) => {
@@ -44,16 +43,11 @@ export const InputComponent = (props: InputComponentProps) => {
           value={text}
           onChange={handleTextChange}
         />
-        {!isValid && (
-          <p className="text-red-500 text-sm mt-1" role="alert">
-            Please enter some text
-          </p>
-        )}
+        {!isValid && <ErrorHandler error="Please enter some text" className="mt-2" />}
       </div>
       <div className="flex space-x-4 mt-4">
         <button
           onClick={handleCheckText}
-          disabled={props.isLoading}
           className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out"
         >
           <span className="absolute left-0 inset-y-0 flex items-center pl-3">
@@ -63,7 +57,6 @@ export const InputComponent = (props: InputComponentProps) => {
         </button>
         <button
           onClick={resetText}
-          disabled={props.isLoading}
           className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out"
         >
           <span className="absolute left-0 inset-y-0 flex items-center pl-3">
@@ -72,11 +65,6 @@ export const InputComponent = (props: InputComponentProps) => {
           Reset
         </button>
       </div>
-      {props.isLoading && (
-        <div className="flex justify-center mt-8">
-          <BeatLoader color="#2563EB" />
-        </div>
-      )}
     </div>
   );
 };
