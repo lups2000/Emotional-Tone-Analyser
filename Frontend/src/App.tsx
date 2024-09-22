@@ -1,9 +1,9 @@
-import { Input } from "./components/Input";
+import { EmotionAnalyser } from "./components/EmotionAnalyser";
 
 function App() {
   return (
     <div>
-      <Input />
+      <EmotionAnalyser />
     </div>
   );
 }
