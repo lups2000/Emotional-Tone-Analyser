@@ -1,5 +1,6 @@
 import { SentimentResponse } from "../api/collections/sentiment";
 import { FaRegFaceSmile, FaRegFaceFrown, FaRegFaceMeh } from "react-icons/fa6";
+import GaugeChart from "react-gauge-chart";
 
 interface ToneResultsProps {
   sentiment?: SentimentResponse;
@@ -16,7 +17,7 @@ export const ToneResults = ({ sentiment }: ToneResultsProps) => {
       case "Negative":
         return {
           icon: <FaRegFaceFrown aria-label="Negative sentiment" />,
-          color: "text-blue-700",
+          color: "text-gray-700",
         };
       default:
         return {
@@ -27,6 +28,10 @@ export const ToneResults = ({ sentiment }: ToneResultsProps) => {
   };
 
   const { icon, color } = getIconAndColor(sentiment?.sentimentLabel);
+
+  const magnitude = sentiment?.magnitude ?? 0;
+  const maxMagnitude = 5; // just to set a threshold 
+  const gaugePercent = Math.min(magnitude / maxMagnitude, 1);
 
   return (
     <div className="p-4 bg-white shadow-md rounded-md">
@@ -40,6 +45,20 @@ export const ToneResults = ({ sentiment }: ToneResultsProps) => {
             {sentiment?.sentimentLabel ?? "No sentiment detected"}
           </p>
         </div>
+      </div>
+      <div className="w-full mt-3">
+        <GaugeChart
+          nrOfLevels={20}
+          percent={gaugePercent}
+          colors={["#b0d2ff", "#0370ff"]}
+          arcWidth={0.3}
+          needleColor="#d6d6d6"
+          needleBaseColor="#d6d6d6"
+          hideText
+        />
+        <p className="text-center text-sm text-gray-600 mt-2">
+          Magnitude: {magnitude.toFixed(2)} / {maxMagnitude}
+        </p>
       </div>
     </div>
   );
