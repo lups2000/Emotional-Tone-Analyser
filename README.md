@@ -73,3 +73,9 @@ The frontend is a React application that provides an intuitive interface for use
 2. Run `yarn` or `yarn install` to install all the dependencies
 3. create a `.env` file in the root with the following content: `BACKEND_URL=http://localhost:5001/` or any other url
 4. Run `yarn start` to run the application
+
+## DEMO
+
+![Default](./Images/picture_1.jpeg)
+![Positive Emotion](./Images/picture_3.jpeg)
+![Negative Emotion](./Images/picture_2.jpeg)
