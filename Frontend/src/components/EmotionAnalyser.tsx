@@ -54,9 +54,9 @@ export const EmotionAnalyser = () => {
           </div>
         ) : serverError !== "" ? (
           <ErrorHandler error={serverError} />
-        ) : (
-          sentiment !== undefined && <ToneResults sentiment={sentiment} />
-        )}
+        ) : sentiment ? (
+          <ToneResults sentiment={sentiment} />
+        ) : undefined}
       </div>
     </div>
   );
