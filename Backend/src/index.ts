@@ -13,7 +13,7 @@ const PORT: number = parseInt(process.env.PORT as string, 10) || 5001;
 
 // Middleware Setup
 app.use(cors({
-  origin: 'http://localhost:3000'
+  origin: 'http://localhost:3000' // Allow requests from the frontend, running on port 3000
 }));
 app.use(bodyParser.json());
 
