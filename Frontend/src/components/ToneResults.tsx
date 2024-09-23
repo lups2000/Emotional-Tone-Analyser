@@ -17,12 +17,12 @@ export const ToneResults = ({ sentiment }: ToneResultsProps) => {
       case "Negative":
         return {
           icon: <FaRegFaceFrown aria-label="Negative sentiment" />,
-          color: "text-gray-700",
+          color: "text-red-700",
         };
       default:
         return {
           icon: <FaRegFaceMeh aria-label="Neutral sentiment" />,
-          color: "text-orange-500",
+          color: "text-stone-500",
         };
     }
   };
@@ -48,12 +48,12 @@ export const ToneResults = ({ sentiment }: ToneResultsProps) => {
       </div>
       <div className="w-full mt-3">
         <GaugeChart
-          nrOfLevels={20}
+          nrOfLevels={3}
           percent={gaugePercent}
-          colors={["#b0d2ff", "#0370ff"]}
+          colors={["#e0e7ff", "#4f46e5"]}
           arcWidth={0.3}
-          needleColor="#d6d6d6"
-          needleBaseColor="#d6d6d6"
+          needleColor="#ccc9c0"
+          needleBaseColor="#ccc9c0"
           hideText
         />
         <p className="text-center text-sm text-gray-600 mt-2">
