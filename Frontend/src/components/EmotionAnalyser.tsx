@@ -1,5 +1,8 @@
 import { useState } from "react";
-import { analyseSentiment } from "../api/collections/sentiment";
+import {
+  analyseSentiment,
+  SentimentResponse,
+} from "../api/collections/sentiment";
 import { InputComponent } from "./InputComponent";
 import { ToneResults } from "./ToneResults";
 import { BeatLoader } from "react-spinners";
@@ -8,19 +11,23 @@ import { ErrorHandler } from "./ErrorHandler";
 export const EmotionAnalyser = () => {
   const [isFetchingResults, setIsFetchingResults] = useState(false);
   const [serverError, setServerError] = useState("");
+  const [sentiment, setSentiment] = useState<SentimentResponse | undefined>(
+    undefined
+  );
 
   const handleCheckEmotionalTone = async (text: string) => {
+    setIsFetchingResults(true);
+    setServerError("");
+
     try {
       // Call the API to check the emotional tone
-      setIsFetchingResults(true);
       const response = await analyseSentiment(text);
-      console.log(response);
-      setIsFetchingResults(false);
-      setServerError("");
+      setSentiment(response);
     } catch (error: any) {
       const errorMessage =
         error instanceof Error ? error.message : String(error);
       setServerError(errorMessage);
+    } finally {
       setIsFetchingResults(false);
     }
   };
@@ -36,7 +43,11 @@ export const EmotionAnalyser = () => {
             Analyse the emotional tone of your text
           </p>
         </div>
-        <InputComponent onCheckText={handleCheckEmotionalTone} />
+        <InputComponent
+          onCheckText={handleCheckEmotionalTone}
+          onResetText={() => setSentiment(undefined)}
+        />
+        <hr />
         {isFetchingResults ? (
           <div className="flex justify-center mt-8">
             <BeatLoader color="#2563EB" />
@@ -44,7 +55,7 @@ export const EmotionAnalyser = () => {
         ) : serverError !== "" ? (
           <ErrorHandler error={serverError} />
         ) : (
-          <ToneResults />
+          sentiment !== undefined && <ToneResults sentiment={sentiment} />
         )}
       </div>
     </div>

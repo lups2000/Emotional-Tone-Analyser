@@ -2,7 +2,7 @@ import { ApiClient } from "../apiClient";
 
 const apiClient = new ApiClient();
 
-interface SentimentResponse {
+export interface SentimentResponse {
   score: number;
   magnitude: number;
   sentimentLabel: "Positive" | "Negative" | "Neutral";

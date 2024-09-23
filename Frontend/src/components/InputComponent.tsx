@@ -4,6 +4,7 @@ import { ErrorHandler } from "./ErrorHandler";
 
 export interface InputComponentProps {
   onCheckText: (text: string) => void;
+  onResetText: () => void;
 }
 
 export const InputComponent = (props: InputComponentProps) => {
@@ -27,6 +28,7 @@ export const InputComponent = (props: InputComponentProps) => {
   const resetText = () => {
     setText("");
     setIsValid(true);
+    props.onResetText();
   };
 
   return (
